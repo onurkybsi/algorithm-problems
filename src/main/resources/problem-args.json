@@ -1,7 +1,7 @@
 {
 	"RemoveNthNodeFromEndOfList": [
 		{
-			"head": [
+			"nodeValues": [
 				1,
 				2,
 				3,
