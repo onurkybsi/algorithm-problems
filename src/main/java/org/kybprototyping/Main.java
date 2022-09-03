@@ -1,11 +1,6 @@
 package org.kybprototyping;
 
 import org.kybprototyping.problems.RemoveNthNodeFromEndOfList;
-import org.kybprototyping.problems.RemoveNthNodeFromEndOfList.RemoveNthNodeFromEndOfListArgs;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,8 +20,7 @@ public class Main {
 						This project includes some algorithm problems from some resources like LeetCode and the solutions of mine for them.
 						Choose a problem by entering the number! And see the result that my algorithm finds!
 						""");
-		var test = RemoveNthNodeFromEndOfList.args.get(0);
-		System.out.println("Main.main()");
+		RemoveNthNodeFromEndOfList.runSolution(0);
 	}
 
 	public static String[] getAllProblemNames() {

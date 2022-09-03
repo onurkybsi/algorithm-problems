@@ -4,6 +4,9 @@ import org.kybprototyping.BootstrapHelper;
 
 import java.util.List;
 
+import lombok.Data;
+import lombok.Getter;
+
 /**
  * This problems has been taken from <i>LeetCode</i>.
  * You could find the problem description from the <a href=
@@ -11,27 +14,22 @@ import java.util.List;
  */
 public class RemoveNthNodeFromEndOfList {
 	public static List<RemoveNthNodeFromEndOfListArgs> args = BootstrapHelper
-			.getProblemArgs("RemoveNthNodeFromEndOfList");
+			.getProblemArgs(RemoveNthNodeFromEndOfListArgs.class);
 
 	private RemoveNthNodeFromEndOfList() {
 		throw new UnsupportedOperationException("This class is stateless!");
 	}
 
-	public class RemoveNthNodeFromEndOfListArgs {
-		public Integer[] nodeValues;
-		public Integer n;
+	@Data
+	public static class RemoveNthNodeFromEndOfListArgs {
+		private Integer[] nodeValues;
+		private Integer n;
 	}
 
-	public class ListNode {
+	@Getter
+	private static class ListNode {
 		int val;
 		ListNode next;
-
-		ListNode() {
-		}
-
-		ListNode(int val) {
-			this.val = val;
-		}
 
 		ListNode(int val, ListNode next) {
 			this.val = val;
@@ -39,7 +37,18 @@ public class RemoveNthNodeFromEndOfList {
 		}
 	}
 
-	public static ListNode removeNthFromEnd(ListNode head, int n) {
+	private static ListNode removeNthFromEnd(ListNode head, int n) {
 		return null;
+	}
+
+	public static void runSolution(int argumentIx) {
+		RemoveNthNodeFromEndOfListArgs arg = args.get(argumentIx);
+		ListNode nextNode = null;
+		for (int i = arg.nodeValues.length - 1; i >= 0; i--) {
+			ListNode node = new ListNode(arg.nodeValues[i], nextNode);
+			nextNode = node;
+		}
+		ListNode result = removeNthFromEnd(nextNode, arg.n);
+		System.out.println(result);
 	}
 }

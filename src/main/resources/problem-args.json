@@ -1,5 +1,5 @@
 {
-	"RemoveNthNodeFromEndOfList": [
+	"removeNthNodeFromEndOfListArgs": [
 		{
 			"nodeValues": [
 				1,

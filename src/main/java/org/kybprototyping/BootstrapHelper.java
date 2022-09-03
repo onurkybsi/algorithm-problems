@@ -1,46 +1,38 @@
 package org.kybprototyping;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.JsonParser.Feature;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 
-@SuppressWarnings({ "java:S112" })
+@SuppressWarnings("java:S112")
 public class BootstrapHelper {
 	private static final ObjectMapper objectMapper = new ObjectMapper();
-
-	private static final Map<String, JsonNode> problemArgs = buildProblemArgs();
+	private static final ProblemsArgs problemArgs = buildProblemArgs();
 
 	private BootstrapHelper() {
 		throw new UnsupportedOperationException("This class is stateless!");
 	}
 
-	private static Map<String, JsonNode> buildProblemArgs() {
+	private static ProblemsArgs buildProblemArgs() {
 		try {
 			InputStream problemArgsInputStream = Main.class.getClassLoader()
 					.getResourceAsStream("problem-args.json");
-			return objectMapper.readValue(problemArgsInputStream,
-					objectMapper.getTypeFactory().constructType(new TypeReference<Map<String, JsonNode>>() {
-					}));
-			// return objectMapper.readTree(problemArgsInputStream);
+			return objectMapper.readValue(problemArgsInputStream, ProblemsArgs.class);
 		} catch (IOException e) {
 			throw new RuntimeException("Bootstrapping unsuccessful!", e);
 		}
 	}
 
-	public static <T> List<T> getProblemArgs(String problemName) {
+	@SuppressWarnings("unchecked")
+	public static <T> List<T> getProblemArgs(Class<T> problemArgsType) {
 		try {
-			return objectMapper.convertValue(problemArgs.get(problemName),
-					new TypeReference<List<T>>() {
-					});
-		} catch (IllegalArgumentException e) {
-			throw new RuntimeException("Bootstrapping unsuccessful!", e);
+			return (List<T>) ProblemsArgs.class
+					.getMethod(String.format("get%s", problemArgsType.getSimpleName()))
+					.invoke(problemArgs);
+		} catch (Exception e) {
+			throw new RuntimeException("Getting problem args unsuccessful!", e);
 		}
 	}
 }
