@@ -1,6 +1,7 @@
 package org.kybprototyping.problems;
 
 import org.kybprototyping.BootstrapHelper;
+import org.kybprototyping.SimpleLogger;
 
 import java.util.List;
 
@@ -37,18 +38,51 @@ public class RemoveNthNodeFromEndOfList {
 		}
 	}
 
+	// Runtime: 1 ms, faster than 72.17% of Java online submissions
+	// Memory Usage: 42 MB, less than 67.48% of Java online submissions
 	private static ListNode removeNthFromEnd(ListNode head, int n) {
-		return null;
+		if (head == null) {
+			return null;
+		}
+
+		// calculate the length of the list
+		ListNode tail = head;
+		int lengthOfList = 1;
+		while (tail.next != null) {
+			tail = tail.next;
+			lengthOfList++;
+		}
+
+		// remove the nth node
+		ListNode previousOne = null;
+		ListNode toBeRemoved = head;
+		for (int i = 0;; i++) {
+			if (i == lengthOfList - n) {
+				if (i == 0) {
+					head = toBeRemoved.next;
+					toBeRemoved = null;
+				} else {
+					previousOne.next = toBeRemoved.next;
+					toBeRemoved = null;
+				}
+				break;
+			} else {
+				previousOne = toBeRemoved;
+				toBeRemoved = toBeRemoved.next;
+			}
+		}
+
+		return head;
 	}
 
-	public static void runSolution(int argumentIx) {
-		RemoveNthNodeFromEndOfListArgs arg = args.get(argumentIx);
+	public static void runSolution(int argsOrder) {
+		RemoveNthNodeFromEndOfListArgs arg = args.get(argsOrder - 1);
 		ListNode nextNode = null;
 		for (int i = arg.nodeValues.length - 1; i >= 0; i--) {
 			ListNode node = new ListNode(arg.nodeValues[i], nextNode);
 			nextNode = node;
 		}
 		ListNode result = removeNthFromEnd(nextNode, arg.n);
-		System.out.println(result);
+		SimpleLogger.INSTANCE.logInfo(result);
 	}
 }

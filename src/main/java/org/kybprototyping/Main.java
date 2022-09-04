@@ -14,13 +14,13 @@ public class Main {
 	private static final List<Class<?>> allProblemClasses = getAllProblemClasses();
 
 	public static void main(String[] args) throws IOException {
-		System.out.println(
+		SimpleLogger.INSTANCE.logInfo(
 				"""
 						Hello World! Onur Kayabasi speaking :)
 						This project includes some algorithm problems from some resources like LeetCode and the solutions of mine for them.
 						Choose a problem by entering the number! And see the result that my algorithm finds!
 						""");
-		RemoveNthNodeFromEndOfList.runSolution(0);
+		RemoveNthNodeFromEndOfList.runSolution(1);
 	}
 
 	public static String[] getAllProblemNames() {
