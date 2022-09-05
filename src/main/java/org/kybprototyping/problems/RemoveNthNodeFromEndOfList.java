@@ -6,15 +6,14 @@ import org.kybprototyping.SimpleLogger;
 import java.util.List;
 
 import lombok.Data;
-import lombok.Getter;
 
 /**
  * This problems has been taken from <i>LeetCode</i>.
  * You could find the problem description from the <a href=
  * "https://leetcode.com/problems/remove-nth-node-from-end-of-list/">link</a>.
  */
-public class RemoveNthNodeFromEndOfList {
-	public static List<RemoveNthNodeFromEndOfListArgs> args = BootstrapHelper
+public class RemoveNthNodeFromEndOfList implements ProblemBase {
+	private static List<RemoveNthNodeFromEndOfListArgs> args = BootstrapHelper
 			.getProblemArgs(RemoveNthNodeFromEndOfListArgs.class);
 
 	private RemoveNthNodeFromEndOfList() {
@@ -27,7 +26,6 @@ public class RemoveNthNodeFromEndOfList {
 		private Integer n;
 	}
 
-	@Getter
 	private static class ListNode {
 		int val;
 		ListNode next;
@@ -75,7 +73,17 @@ public class RemoveNthNodeFromEndOfList {
 		return head;
 	}
 
-	public static void runSolution(int argsOrder) {
+	@Override
+	public String getName() {
+		return "RemoveNthNodeFromEndOfList";
+	}
+
+	@Override
+	public String getDescriptionLink() {
+		return "https://leetcode.com/problems/remove-nth-node-from-end-of-list/";
+	}
+
+	public void runSolution(int argsOrder) {
 		RemoveNthNodeFromEndOfListArgs arg = args.get(argsOrder - 1);
 		ListNode nextNode = null;
 		for (int i = arg.nodeValues.length - 1; i >= 0; i--) {

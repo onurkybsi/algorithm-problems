@@ -1,5 +1,6 @@
 package org.kybprototyping;
 
+import org.kybprototyping.problems.ProblemBase;
 import org.kybprototyping.problems.RemoveNthNodeFromEndOfList;
 
 import java.io.BufferedReader;
@@ -16,11 +17,18 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		SimpleLogger.INSTANCE.logInfo(
 				"""
+						##################################################################################################################
 						Hello World! Onur Kayabasi speaking :)
+
 						This project includes some algorithm problems from some resources like LeetCode and the solutions of mine for them.
 						Choose a problem by entering the number! And see the result that my algorithm finds!
+						##################################################################################################################
 						""");
-		RemoveNthNodeFromEndOfList.runSolution(1);
+
+		List<Class<?>> problems = getAllProblemClasses();
+		for (int i = 0; i < problems.size(); i++) {
+			SimpleLogger.INSTANCE.logInfo(problems.get(i));
+		}
 	}
 
 	public static String[] getAllProblemNames() {
