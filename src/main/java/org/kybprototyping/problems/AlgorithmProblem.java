@@ -1,6 +1,6 @@
 package org.kybprototyping.problems;
 
-public interface ProblemBase {
+public interface AlgorithmProblem {
 	String getName();
 
 	String getDescriptionLink();

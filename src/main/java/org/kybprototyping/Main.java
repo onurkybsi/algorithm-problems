@@ -1,67 +1,100 @@
 package org.kybprototyping;
 
-import org.kybprototyping.problems.ProblemBase;
-import org.kybprototyping.problems.RemoveNthNodeFromEndOfList;
+import org.kybprototyping.problems.AlgorithmProblem;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-@SuppressWarnings({ "java:S106" })
+@SuppressWarnings({ "java:S106", "java:S112" })
 public class Main {
-	private static final List<Class<?>> allProblemClasses = getAllProblemClasses();
+	private static Pattern patternChecksNumericChar = Pattern.compile("-?\\d+(\\.\\d+)?");
+	private static final List<AlgorithmProblem> allProblems;
 
-	public static void main(String[] args) throws IOException {
-		SimpleLogger.INSTANCE.logInfo(
-				"""
-						##################################################################################################################
-						Hello World! Onur Kayabasi speaking :)
-
-						This project includes some algorithm problems from some resources like LeetCode and the solutions of mine for them.
-						Choose a problem by entering the number! And see the result that my algorithm finds!
-						##################################################################################################################
-						""");
-
-		List<Class<?>> problems = getAllProblemClasses();
-		for (int i = 0; i < problems.size(); i++) {
-			SimpleLogger.INSTANCE.logInfo(problems.get(i));
-		}
-	}
-
-	public static String[] getAllProblemNames() {
-		String[] allProblemNames = new String[allProblemClasses.size()];
-
-		for (int i = 0; i < allProblemClasses.size(); i++) {
-			allProblemNames[i] = allProblemClasses.get(i).getSimpleName();
-		}
-
-		return allProblemNames;
-	}
-
-	private static List<Class<?>> getAllProblemClasses() {
+	static {
 		String problemClassesPackageName = "org.kybprototyping.problems";
 		InputStream stream = ClassLoader.getSystemClassLoader()
 				.getResourceAsStream(problemClassesPackageName.replaceAll("[.]", "/"));
 		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-		return reader.lines()
+
+		allProblems = reader.lines()
 				.filter(line -> line.endsWith(".class"))
-				.map(line -> getClass(line, problemClassesPackageName))
-				.filter(problemClass -> !problemClass.isMemberClass())
-				.collect(Collectors.toList());
+				.map(className -> {
+					try {
+						return Class.forName(problemClassesPackageName + "."
+								+ className.substring(0, className.lastIndexOf('.')));
+					} catch (ClassNotFoundException e) {
+						ConsoleUtils.INSTANCE.error(e);
+						throw new RuntimeException(e);
+					}
+				})
+				.filter(problemClass -> !problemClass.isMemberClass() && !problemClass.isInterface())
+				.map(problem -> {
+					try {
+						return (AlgorithmProblem) problem.getDeclaredConstructors()[0].newInstance();
+					} catch (Exception e) {
+						ConsoleUtils.INSTANCE.error(e);
+						throw new RuntimeException(e);
+					}
+				}).collect(Collectors.toList());
 	}
 
-	private static Class<?> getClass(String className, String packageName) {
-		try {
-			return Class.forName(packageName + "."
-					+ className.substring(0, className.lastIndexOf('.')));
-		} catch (ClassNotFoundException e) {
-			System.err.println(String.format(
-					"The parameters -> className: %s & packageName: %s", className, packageName));
-			System.exit(1);
+	public static void main(String[] args) throws Exception {
+		ConsoleUtils.INSTANCE.info(
+				"""
+						------------------------------------------------------------------------------------------------------------------
+
+						Hello World! Onur Kayabasi speaking :)
+
+						This project includes some algorithm problems from some resources like LeetCode and the solutions of mine for them.
+						Choose a problem and its arguments by using console! And see the result that my algorithm finds!
+
+						------------------------------------------------------------------------------------------------------------------
+						""");
+
+		printAllProblemsToTheConsole();
+		String problemNumberWillBeSolved = System.console().readLine();
+		while (!validateEnteredNumber(problemNumberWillBeSolved, 1, allProblems.size())) {
+			ConsoleUtils.INSTANCE.info("Please enter a valid number!");
+			problemNumberWillBeSolved = System.console().readLine();
 		}
-		return null;
+		printProblemDetails(allProblems.get(Integer.parseInt(problemNumberWillBeSolved) - 1));
+	}
+
+	private static void printAllProblemsToTheConsole() {
+		for (int i = 0; i < allProblems.size(); i++) {
+			AlgorithmProblem problem = allProblems.get(i);
+			ConsoleUtils.INSTANCE.info(String.format("%s. %s", i + 1, problem.getName()));
+		}
+	}
+
+	private static boolean validateEnteredNumber(String enteredValue, Integer lowerBound, Integer upperBound) {
+		if (enteredValue == null) {
+			return false;
+		}
+		if (!patternChecksNumericChar.matcher(enteredValue).matches()) {
+			return false;
+		}
+		Integer enteredIntValue = Integer.parseInt(enteredValue);
+		return enteredIntValue >= lowerBound && enteredIntValue <= upperBound;
+	}
+
+	private static void printProblemDetails(AlgorithmProblem problem) {
+		ConsoleUtils.INSTANCE.clearConsole();
+		ConsoleUtils.INSTANCE.info(String.format(
+				"""
+						%s
+						------------------------------------------------------------------------------------------------------------------
+
+						You can examine the problem description from: %s
+
+						arguments...
+
+						Press backspace to go back to see all the problems...
+						""",
+				problem.getName(), problem.getDescriptionLink()));
 	}
 }

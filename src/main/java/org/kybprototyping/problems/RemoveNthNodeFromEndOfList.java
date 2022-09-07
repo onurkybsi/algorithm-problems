@@ -1,7 +1,7 @@
 package org.kybprototyping.problems;
 
 import org.kybprototyping.BootstrapHelper;
-import org.kybprototyping.SimpleLogger;
+import org.kybprototyping.ConsoleUtils;
 
 import java.util.List;
 
@@ -12,13 +12,9 @@ import lombok.Data;
  * You could find the problem description from the <a href=
  * "https://leetcode.com/problems/remove-nth-node-from-end-of-list/">link</a>.
  */
-public class RemoveNthNodeFromEndOfList implements ProblemBase {
+public class RemoveNthNodeFromEndOfList implements AlgorithmProblem {
 	private static List<RemoveNthNodeFromEndOfListArgs> args = BootstrapHelper
 			.getProblemArgs(RemoveNthNodeFromEndOfListArgs.class);
-
-	private RemoveNthNodeFromEndOfList() {
-		throw new UnsupportedOperationException("This class is stateless!");
-	}
 
 	@Data
 	public static class RemoveNthNodeFromEndOfListArgs {
@@ -91,6 +87,6 @@ public class RemoveNthNodeFromEndOfList implements ProblemBase {
 			nextNode = node;
 		}
 		ListNode result = removeNthFromEnd(nextNode, arg.n);
-		SimpleLogger.INSTANCE.logInfo(result);
+		ConsoleUtils.INSTANCE.info(result);
 	}
 }
