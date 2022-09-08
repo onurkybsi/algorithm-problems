@@ -12,7 +12,8 @@ import lombok.Data;
  * You could find the problem description from the <a href=
  * "https://leetcode.com/problems/remove-nth-node-from-end-of-list/">link</a>.
  */
-public class RemoveNthNodeFromEndOfList implements AlgorithmProblem {
+public class RemoveNthNodeFromEndOfList
+		implements AlgorithmProblem<RemoveNthNodeFromEndOfList.RemoveNthNodeFromEndOfListArgs> {
 	private static List<RemoveNthNodeFromEndOfListArgs> args = BootstrapHelper
 			.getProblemArgs(RemoveNthNodeFromEndOfListArgs.class);
 
@@ -79,6 +80,12 @@ public class RemoveNthNodeFromEndOfList implements AlgorithmProblem {
 		return "https://leetcode.com/problems/remove-nth-node-from-end-of-list/";
 	}
 
+	@Override
+	public List<RemoveNthNodeFromEndOfList.RemoveNthNodeFromEndOfListArgs> getProblemArgs() {
+		return args;
+	}
+
+	@Override
 	public void runSolution(int argsOrder) {
 		RemoveNthNodeFromEndOfListArgs arg = args.get(argsOrder - 1);
 		ListNode nextNode = null;

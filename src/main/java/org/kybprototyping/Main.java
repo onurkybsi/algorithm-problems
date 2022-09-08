@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings({ "java:S106", "java:S112" })
 public class Main {
 	private static Pattern patternChecksNumericChar = Pattern.compile("-?\\d+(\\.\\d+)?");
-	private static final List<AlgorithmProblem> allProblems;
+	private static final List<AlgorithmProblem<?>> allProblems;
 
 	static {
 		String problemClassesPackageName = "org.kybprototyping.problems";
@@ -34,7 +34,7 @@ public class Main {
 				.filter(problemClass -> !problemClass.isMemberClass() && !problemClass.isInterface())
 				.map(problem -> {
 					try {
-						return (AlgorithmProblem) problem.getDeclaredConstructors()[0].newInstance();
+						return (AlgorithmProblem<?>) problem.getDeclaredConstructors()[0].newInstance();
 					} catch (Exception e) {
 						ConsoleUtils.INSTANCE.error(e);
 						throw new RuntimeException(e);
@@ -43,6 +43,21 @@ public class Main {
 	}
 
 	public static void main(String[] args) throws Exception {
+		greetClient();
+		printAllProblemsToTheConsole();
+		String problemNumberWillBeSolved = System.console().readLine();
+		while (!validateEnteredNumber(problemNumberWillBeSolved, 1, allProblems.size())) {
+			ConsoleUtils.INSTANCE.info("Please enter a valid number!");
+			Thread.sleep(1000);
+			ConsoleUtils.INSTANCE.clearConsole();
+			greetClient();
+			printAllProblemsToTheConsole();
+			problemNumberWillBeSolved = System.console().readLine();
+		}
+		printProblemDetails(allProblems.get(Integer.parseInt(problemNumberWillBeSolved) - 1));
+	}
+
+	private static void greetClient() {
 		ConsoleUtils.INSTANCE.info(
 				"""
 						------------------------------------------------------------------------------------------------------------------
@@ -54,19 +69,11 @@ public class Main {
 
 						------------------------------------------------------------------------------------------------------------------
 						""");
-
-		printAllProblemsToTheConsole();
-		String problemNumberWillBeSolved = System.console().readLine();
-		while (!validateEnteredNumber(problemNumberWillBeSolved, 1, allProblems.size())) {
-			ConsoleUtils.INSTANCE.info("Please enter a valid number!");
-			problemNumberWillBeSolved = System.console().readLine();
-		}
-		printProblemDetails(allProblems.get(Integer.parseInt(problemNumberWillBeSolved) - 1));
 	}
 
 	private static void printAllProblemsToTheConsole() {
 		for (int i = 0; i < allProblems.size(); i++) {
-			AlgorithmProblem problem = allProblems.get(i);
+			AlgorithmProblem<?> problem = allProblems.get(i);
 			ConsoleUtils.INSTANCE.info(String.format("%s. %s", i + 1, problem.getName()));
 		}
 	}
@@ -82,19 +89,31 @@ public class Main {
 		return enteredIntValue >= lowerBound && enteredIntValue <= upperBound;
 	}
 
-	private static void printProblemDetails(AlgorithmProblem problem) {
+	private static void printProblemDetails(AlgorithmProblem<?> problem) {
 		ConsoleUtils.INSTANCE.clearConsole();
+
+		StringBuilder argsConsoleOutput = new StringBuilder();
+		for (int i = 0; i < problem.getProblemArgs().size(); i++) {
+			argsConsoleOutput.append(ConsoleUtils.INSTANCE.toGreen(i + 1));
+			argsConsoleOutput.append(" -> ");
+			argsConsoleOutput.append(ConsoleUtils.INSTANCE.toPrettyString(problem.getProblemArgs().get(i)));
+			argsConsoleOutput.append(System.lineSeparator());
+			argsConsoleOutput.append(System.lineSeparator());
+		}
+
 		ConsoleUtils.INSTANCE.info(String.format(
 				"""
 						%s
 						------------------------------------------------------------------------------------------------------------------
-
 						You can examine the problem description from: %s
 
-						arguments...
+						%s
 
-						Press backspace to go back to see all the problems...
+						%s
 						""",
-				problem.getName(), problem.getDescriptionLink()));
+				problem.getName(),
+				problem.getDescriptionLink(),
+				argsConsoleOutput.toString(),
+				ConsoleUtils.INSTANCE.toRed("Press backspace to go back to see all the problems...")));
 	}
 }
