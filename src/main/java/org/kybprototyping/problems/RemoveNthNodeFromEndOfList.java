@@ -33,6 +33,33 @@ public class RemoveNthNodeFromEndOfList
 		}
 	}
 
+	@Override
+	public String getName() {
+		return "RemoveNthNodeFromEndOfList";
+	}
+
+	@Override
+	public String getDescriptionLink() {
+		return "https://leetcode.com/problems/remove-nth-node-from-end-of-list/";
+	}
+
+	@Override
+	public List<RemoveNthNodeFromEndOfList.RemoveNthNodeFromEndOfListArgs> getProblemArgs() {
+		return args;
+	}
+
+	@Override
+	public void runSolution(int argsOrder) {
+		RemoveNthNodeFromEndOfListArgs arg = args.get(argsOrder - 1);
+		ListNode nextNode = null;
+		for (int i = arg.nodeValues.length - 1; i >= 0; i--) {
+			ListNode node = new ListNode(arg.nodeValues[i], nextNode);
+			nextNode = node;
+		}
+		ListNode result = removeNthFromEnd(nextNode, arg.n);
+		ConsoleUtils.INSTANCE.info(result);
+	}
+
 	// Runtime: 1 ms, faster than 72.17% of Java online submissions
 	// Memory Usage: 42 MB, less than 67.48% of Java online submissions
 	private static ListNode removeNthFromEnd(ListNode head, int n) {
@@ -68,32 +95,5 @@ public class RemoveNthNodeFromEndOfList
 		}
 
 		return head;
-	}
-
-	@Override
-	public String getName() {
-		return "RemoveNthNodeFromEndOfList";
-	}
-
-	@Override
-	public String getDescriptionLink() {
-		return "https://leetcode.com/problems/remove-nth-node-from-end-of-list/";
-	}
-
-	@Override
-	public List<RemoveNthNodeFromEndOfList.RemoveNthNodeFromEndOfListArgs> getProblemArgs() {
-		return args;
-	}
-
-	@Override
-	public void runSolution(int argsOrder) {
-		RemoveNthNodeFromEndOfListArgs arg = args.get(argsOrder - 1);
-		ListNode nextNode = null;
-		for (int i = arg.nodeValues.length - 1; i >= 0; i--) {
-			ListNode node = new ListNode(arg.nodeValues[i], nextNode);
-			nextNode = node;
-		}
-		ListNode result = removeNthFromEnd(nextNode, arg.n);
-		ConsoleUtils.INSTANCE.info(result);
 	}
 }

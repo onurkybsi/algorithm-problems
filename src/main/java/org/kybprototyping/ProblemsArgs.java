@@ -1,6 +1,7 @@
 package org.kybprototyping;
 
 import org.kybprototyping.problems.RemoveNthNodeFromEndOfList.RemoveNthNodeFromEndOfListArgs;
+import org.kybprototyping.problems.ValidParentheses.ValidParenthesesArgs;
 
 import java.util.List;
 
@@ -9,4 +10,5 @@ import lombok.Data;
 @Data
 public class ProblemsArgs {
 	private List<RemoveNthNodeFromEndOfListArgs> removeNthNodeFromEndOfListArgs;
+	private List<ValidParenthesesArgs> validParenthesesArgs;
 }
