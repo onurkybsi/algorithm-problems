@@ -43,18 +43,22 @@ public class Main {
 	}
 
 	public static void main(String[] args) throws Exception {
-		greetClient();
-		printAllProblemsToTheConsole();
-		String problemNumberWillBeSolved = System.console().readLine();
-		while (!validateEnteredNumber(problemNumberWillBeSolved, 1, allProblems.size())) {
-			ConsoleUtils.INSTANCE.info("Please enter a valid number!");
-			Thread.sleep(1000);
-			ConsoleUtils.INSTANCE.clearConsole();
-			greetClient();
-			printAllProblemsToTheConsole();
-			problemNumberWillBeSolved = System.console().readLine();
-		}
-		printProblemDetails(allProblems.get(Integer.parseInt(problemNumberWillBeSolved) - 1));
+		// greetClient();
+		// printAllProblemsToTheConsole();
+		// String problemNumberWillBeSolved = System.console().readLine();
+		// while (!validateEnteredNumber(problemNumberWillBeSolved, 1,
+		// allProblems.size())) {
+		// ConsoleUtils.INSTANCE.info("Please enter a valid number!");
+		// Thread.sleep(1000);
+		// ConsoleUtils.INSTANCE.clearConsole();
+		// greetClient();
+		// printAllProblemsToTheConsole();
+		// problemNumberWillBeSolved = System.console().readLine();
+		// }
+		// printProblemDetails(allProblems.get(Integer.parseInt(problemNumberWillBeSolved)
+		// - 1));
+
+		allProblems.get(1).runSolution(3);
 	}
 
 	private static void greetClient() {
