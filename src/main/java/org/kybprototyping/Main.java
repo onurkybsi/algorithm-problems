@@ -58,7 +58,7 @@ public class Main {
 		// printProblemDetails(allProblems.get(Integer.parseInt(problemNumberWillBeSolved)
 		// - 1));
 
-		allProblems.get(1).runSolution(3);
+		allProblems.get(1).runSolution(7);
 	}
 
 	private static void greetClient() {

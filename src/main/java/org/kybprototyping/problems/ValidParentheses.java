@@ -4,7 +4,6 @@ import org.kybprototyping.BootstrapHelper;
 import org.kybprototyping.ConsoleUtils;
 
 import java.util.List;
-import java.util.Map;
 
 import lombok.Data;
 
@@ -40,13 +39,58 @@ public class ValidParentheses implements AlgorithmProblem<ValidParentheses.Valid
 	}
 
 	private static boolean isValid(String s) {
-		Map<Character, Character> vcp = Map.of('(', ')', '{', '}', '[', ']');
-
-		int i = 0;
-		int j = 1;
-		while (j < s.length()) {
+		int ix1 = 0;
+		int ix2 = 1;
+		int ix3 = 2;
+		int ix4 = 3;
+		boolean toOutside = false;
+		while (ix1 > -1 && ix2 > -1 && ix2 < s.length() && ix4 < s.length()) {
+			if (toOutside) {
+				if (Character.valueOf(s.charAt(ix3)).equals(getPair(Character.valueOf(s.charAt(ix4))))) {
+					ix3--;
+					ix4++;
+				} else {
+					return false;
+				}
+			}
+			if (Character.valueOf(s.charAt(ix1)).equals(getPair(Character.valueOf(s.charAt(ix2))))) {
+				ix1 += 2;
+				ix2 += 2;
+				ix3 += 2;
+				ix4 += 2;
+			} else {
+				ix1 += 1;
+				ix2 += 1;
+				ix3 = ix1 - 1;
+				ix4 = ix2 + 1;
+				if (!toOutside) {
+					toOutside = Character.valueOf(s.charAt(ix1)).equals(getPair(Character.valueOf(s.charAt(ix2))));
+				}
+			}
 		}
 
 		return true;
+	}
+
+	static Character getPair(Character onePair) {
+		if (onePair.equals('(')) {
+			return Character.valueOf(')');
+		}
+		if (onePair.equals(')')) {
+			return Character.valueOf('(');
+		}
+		if (onePair.equals('{')) {
+			return Character.valueOf('}');
+		}
+		if (onePair.equals('}')) {
+			return Character.valueOf('{');
+		}
+		if (onePair.equals('[')) {
+			return Character.valueOf(']');
+		}
+		if (onePair.equals(']')) {
+			return Character.valueOf('[');
+		}
+		return null;
 	}
 }
