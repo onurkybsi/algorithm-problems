@@ -68,5 +68,27 @@
 		{
 			"s": "(}{)"
 		}
+	],
+	"mergeTwoSortedListsArgs": [
+		{
+			"nodeValues1": [
+				1,
+				2,
+				4
+			],
+			"nodeValues2": [
+				1,
+				3,
+				4
+			]
+		},
+		{
+			"nodeValues1": [
+				2
+			],
+			"nodeValues2": [
+				1
+			]
+		}
 	]
 }
