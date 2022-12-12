@@ -65,6 +65,8 @@ public class MergeTwoSortedLists
 		return nextNode;
 	}
 
+	// Runtime: 1 ms, faster than 79.46% of Java online submissions
+	// Memory Usage: 42.7 MB, less than 67.10% of Java online submissions
 	private static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
 		if (list1 == null) {
 			return list2;
@@ -84,8 +86,14 @@ public class MergeTwoSortedLists
 		}
 
 		ListNode previousNode = headNode;
-		while (list1 != null && list2 != null) {
-			if (list1.val >= list2.val) {
+		while (list1 != null || list2 != null) {
+			if (list1 == null) {
+				nextNode = new ListNode(list2.val, null);
+				list2 = list2.next;
+			} else if (list2 == null) {
+				nextNode = new ListNode(list1.val, null);
+				list1 = list1.next;
+			} else if (list1.val >= list2.val) {
 				nextNode = new ListNode(list2.val, null);
 				list2 = list2.next;
 			} else {
