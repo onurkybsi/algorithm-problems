@@ -1,5 +1,6 @@
 package org.kybprototyping;
 
+import org.kybprototyping.problems.GenerateParentheses.GenerateParenthesesArgs;
 import org.kybprototyping.problems.MergeTwoSortedLists.MergeTwoSortedListsArgs;
 import org.kybprototyping.problems.RemoveNthNodeFromEndOfList.RemoveNthNodeFromEndOfListArgs;
 import org.kybprototyping.problems.ValidParentheses.ValidParenthesesArgs;
@@ -13,4 +14,5 @@ public class ProblemsArgs {
 	private List<RemoveNthNodeFromEndOfListArgs> removeNthNodeFromEndOfListArgs;
 	private List<ValidParenthesesArgs> validParenthesesArgs;
 	private List<MergeTwoSortedListsArgs> mergeTwoSortedListsArgs;
+	private List<GenerateParenthesesArgs> generateParenthesesArgs;
 }

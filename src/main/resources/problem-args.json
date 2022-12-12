@@ -90,5 +90,10 @@
 				1
 			]
 		}
+	],
+	"generateParenthesesArgs": [
+		{
+			"n": 3
+		}
 	]
 }
