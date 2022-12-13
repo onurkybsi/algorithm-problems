@@ -3,7 +3,10 @@ package org.kybprototyping.problems;
 import org.kybprototyping.BootstrapHelper;
 import org.kybprototyping.ConsoleUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import lombok.Data;
 
@@ -50,16 +53,51 @@ public class GenerateParentheses implements AlgorithmProblem<GenerateParentheses
 		// By the solution, let's test n = 4, it could shift n-1 times
 		// 11110000
 		// 11101000
+		// 11100100
 		// 11100010
 		// 11011000
 		// 11010100
 		// 11010010
 		// 10111000
+		// 10110100
 		// 10110010
-		// 10110001
 
 		// - Shift the latest 1 to right side n-1 times
 		// - Shift the left 1 of the latest 1 to right side n-1 times ...
-		return null;
+
+
+		// 1 -> 1			0 +1
+		// 3 -> 5			2 - 2 +1
+		// 4 -> 10 		3 - 3 - 3 +1
+		// 5 -> ?			4 - 4 - 4 - 4 +1
+		// ((n-1) * (n-1)) + 1
+		String[] result = new String[((n-1) * (n-1)) + 1];
+
+		// start
+		char[] initial = new char[n*2];
+		for (int i = 0; i <= 1; i++) {
+			for (int j = n * i; j < n * (i + 1); j++) {
+				if(i == 0) {
+					initial[j] = '(';
+				} else {
+					initial[j] = ')';
+				}
+			}
+		}
+		result[0] = new String(initial);
+
+		int resultIx = 1;
+		char[] tmp = new char[n*2];
+		for (int i = n-1; i > 0; i--) {
+			for (int j = i+1; j < (n*2)-1; j++) {
+				tmp = initial;
+				tmp[i] = ')';
+				tmp[j] = '(';
+				result[resultIx] = new String(tmp);
+				resultIx++;
+			}
+		}
+
+		return Arrays.asList(result);
 	}
 }
