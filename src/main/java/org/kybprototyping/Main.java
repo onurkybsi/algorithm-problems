@@ -69,7 +69,10 @@ public class Main {
 		// allProblems.get(1).runSolution(9);
 		// allProblems.get(1).runSolution(10);
 		// allProblems.get(1).runSolution(11);
-		allProblems.get(0).runSolution(1);
+		var problemToRun = allProblems.stream().filter(p -> p.getName().equals("SwapNodesInPairs"))
+				.findFirst()
+				.orElseThrow();
+		problemToRun.runSolution(1);
 	}
 
 	private static void greetClient() {
