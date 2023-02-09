@@ -1,7 +1,6 @@
 package org.kybprototyping;
 
 import org.kybprototyping.problems.AlgorithmProblem;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,7 +8,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-@SuppressWarnings({ "java:S106", "java:S112" })
+@SuppressWarnings({"java:S106", "java:S112"})
 public class Main {
 	private static Pattern patternChecksNumericChar = Pattern.compile("-?\\d+(\\.\\d+)?");
 	private static final List<AlgorithmProblem<?>> allProblems;
@@ -20,18 +19,15 @@ public class Main {
 				.getResourceAsStream(problemClassesPackageName.replaceAll("[.]", "/"));
 		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 
-		allProblems = reader.lines()
-				.filter(line -> line.endsWith(".class"))
-				.map(className -> {
-					try {
-						return Class.forName(problemClassesPackageName + "."
-								+ className.substring(0, className.lastIndexOf('.')));
-					} catch (ClassNotFoundException e) {
-						ConsoleUtils.INSTANCE.error(e);
-						throw new RuntimeException(e);
-					}
-				})
-				.filter(problemClass -> !problemClass.isMemberClass() && !problemClass.isInterface())
+		allProblems = reader.lines().filter(line -> line.endsWith(".class")).map(className -> {
+			try {
+				return Class.forName(
+						problemClassesPackageName + "." + className.substring(0, className.lastIndexOf('.')));
+			} catch (ClassNotFoundException e) {
+				ConsoleUtils.INSTANCE.error(e);
+				throw new RuntimeException(e);
+			}
+		}).filter(problemClass -> !problemClass.isMemberClass() && !problemClass.isInterface())
 				.map(problem -> {
 					try {
 						return (AlgorithmProblem<?>) problem.getDeclaredConstructors()[0].newInstance();
@@ -70,9 +66,8 @@ public class Main {
 		// allProblems.get(1).runSolution(10);
 		// allProblems.get(1).runSolution(11);
 		var problemToRun = allProblems.stream().filter(p -> p.getName().equals("SwapNodesInPairs"))
-				.findFirst()
-				.orElseThrow();
-		problemToRun.runSolution(1);
+				.findFirst().orElseThrow();
+		problemToRun.runSolution(4);
 	}
 
 	private static void greetClient() {
@@ -96,7 +91,8 @@ public class Main {
 		}
 	}
 
-	private static boolean validateEnteredNumber(String enteredValue, Integer lowerBound, Integer upperBound) {
+	private static boolean validateEnteredNumber(String enteredValue, Integer lowerBound,
+			Integer upperBound) {
 		if (enteredValue == null) {
 			return false;
 		}
@@ -114,7 +110,8 @@ public class Main {
 		for (int i = 0; i < problem.getProblemArgs().size(); i++) {
 			argsConsoleOutput.append(ConsoleUtils.INSTANCE.toGreen(i + 1));
 			argsConsoleOutput.append(" -> ");
-			argsConsoleOutput.append(ConsoleUtils.INSTANCE.toPrettyString(problem.getProblemArgs().get(i)));
+			argsConsoleOutput
+					.append(ConsoleUtils.INSTANCE.toPrettyString(problem.getProblemArgs().get(i)));
 			argsConsoleOutput.append(System.lineSeparator());
 			argsConsoleOutput.append(System.lineSeparator());
 		}
@@ -129,9 +126,7 @@ public class Main {
 
 						%s
 						""",
-				problem.getName(),
-				problem.getDescriptionLink(),
-				argsConsoleOutput.toString(),
+				problem.getName(), problem.getDescriptionLink(), argsConsoleOutput.toString(),
 				ConsoleUtils.INSTANCE.toRed("Press backspace to go back to see all the problems...")));
 	}
 }
