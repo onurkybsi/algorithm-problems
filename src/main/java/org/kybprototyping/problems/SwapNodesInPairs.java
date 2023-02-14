@@ -55,26 +55,32 @@ public class SwapNodesInPairs implements AlgorithmProblem<SwapNodesInPairs.SwapN
 		return nextNode;
 	}
 
+	// Runtime: 0 ms, faster than 100% of Java online submissions
+	// Memory Usage: 40 MB, less than 63.84% of Java online submissions
 	private static ListNode swapPairs(ListNode head) {
 		if (head == null || head.next == null) {
 			return head;
 		}
 
-		ListNode cur = head;
-		ListNode newHead = cur.next;
+		ListNode newHead = head.next;
+		ListNode third = head.next.next;
+		newHead.next = head;
+		newHead.next.next = third;
 
-		ListNode next = null;
-		ListNode third = null;
+		ListNode prev = newHead.next;
+		ListNode cur = newHead.next.next;
 		while (cur != null && cur.next != null) {
-			next = cur.next;
-			third = next.next;
+			ListNode next = cur.next;
+			ListNode inThird = next.next;
 
 			ListNode temp = cur;
+			temp.next = inThird;
 			cur = next;
 			cur.next = temp;
-			temp.next = third != null ? third.next : null;
+			prev.next = cur;
 
-			cur = third;
+			prev = cur.next;
+			cur = inThird;
 		}
 
 		return newHead;
