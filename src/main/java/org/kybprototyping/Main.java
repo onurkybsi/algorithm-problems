@@ -54,19 +54,9 @@ public class Main {
 		// printProblemDetails(allProblems.get(Integer.parseInt(problemNumberWillBeSolved)
 		// - 1));
 
-		// allProblems.get(1).runSolution(1);
-		// allProblems.get(1).runSolution(2);
-		// allProblems.get(1).runSolution(3);
-		// allProblems.get(1).runSolution(4);
-		// allProblems.get(1).runSolution(5);
-		// allProblems.get(1).runSolution(6);
-		// allProblems.get(1).runSolution(7);
-		// allProblems.get(1).runSolution(8);
-		// allProblems.get(1).runSolution(9);
-		// allProblems.get(1).runSolution(10);
-		// allProblems.get(1).runSolution(11);
-		var problemToRun = allProblems.stream().filter(p -> p.getName().equals("SwapNodesInPairs"))
-				.findFirst().orElseThrow();
+		var problemToRun =
+				allProblems.stream().filter(p -> p.getName().equals("RemoveDuplicatesFromSortedArray"))
+						.findFirst().orElseThrow();
 		problemToRun.runSolution(4);
 	}
 

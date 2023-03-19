@@ -2,12 +2,11 @@ package org.kybprototyping;
 
 import org.kybprototyping.problems.GenerateParentheses.GenerateParenthesesArgs;
 import org.kybprototyping.problems.MergeTwoSortedLists.MergeTwoSortedListsArgs;
+import org.kybprototyping.problems.RemoveDuplicatesFromSortedArray.RemoveDuplicatesFromSortedArrayArgs;
 import org.kybprototyping.problems.RemoveNthNodeFromEndOfList.RemoveNthNodeFromEndOfListArgs;
 import org.kybprototyping.problems.SwapNodesInPairs.SwapNodesInPairsArgs;
 import org.kybprototyping.problems.ValidParentheses.ValidParenthesesArgs;
-
 import java.util.List;
-
 import lombok.Data;
 
 @Data
@@ -17,4 +16,5 @@ public class ProblemsArgs {
 	private List<MergeTwoSortedListsArgs> mergeTwoSortedListsArgs;
 	private List<GenerateParenthesesArgs> generateParenthesesArgs;
 	private List<SwapNodesInPairsArgs> swapNodesInPairsArgs;
+	private List<RemoveDuplicatesFromSortedArrayArgs> removeDuplicatesFromSortedArrayArgs;
 }
