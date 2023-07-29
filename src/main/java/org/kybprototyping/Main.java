@@ -57,7 +57,12 @@ public class Main {
 		var problemToRun =
 				allProblems.stream().filter(p -> p.getName().equals("RemoveDuplicatesFromSortedArray"))
 						.findFirst().orElseThrow();
+		problemToRun.runSolution(1);
+		problemToRun.runSolution(2);
+		problemToRun.runSolution(3);
 		problemToRun.runSolution(4);
+		problemToRun.runSolution(5);
+		problemToRun.runSolution(6);
 	}
 
 	private static void greetClient() {
