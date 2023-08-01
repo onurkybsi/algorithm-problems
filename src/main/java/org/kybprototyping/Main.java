@@ -54,15 +54,9 @@ public class Main {
 		// printProblemDetails(allProblems.get(Integer.parseInt(problemNumberWillBeSolved)
 		// - 1));
 
-		var problemToRun =
-				allProblems.stream().filter(p -> p.getName().equals("RemoveDuplicatesFromSortedArray"))
-						.findFirst().orElseThrow();
+		var problemToRun = allProblems.stream().filter(p -> p.getName().equals("RemoveElement"))
+				.findFirst().orElseThrow();
 		problemToRun.runSolution(1);
-		problemToRun.runSolution(2);
-		problemToRun.runSolution(3);
-		problemToRun.runSolution(4);
-		problemToRun.runSolution(5);
-		problemToRun.runSolution(6);
 	}
 
 	private static void greetClient() {
