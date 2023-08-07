@@ -54,9 +54,10 @@ public class Main {
 		// printProblemDetails(allProblems.get(Integer.parseInt(problemNumberWillBeSolved)
 		// - 1));
 
-		var problemToRun = allProblems.stream().filter(p -> p.getName().equals("RemoveElement"))
-				.findFirst().orElseThrow();
-		problemToRun.runSolution(1);
+		var problemToRun =
+				allProblems.stream().filter(p -> p.getName().equals("IndexOfTheFirstOccurrenceInAString"))
+						.findFirst().orElseThrow();
+		problemToRun.runSolution(2);
 	}
 
 	private static void greetClient() {

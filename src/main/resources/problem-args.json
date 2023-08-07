@@ -201,5 +201,19 @@
 			],
 			"val": 2
 		}
+	],
+	"indexOfTheFirstOccurrenceInAStringArgs": [
+		{
+			"haystack": "sadbutsad",
+			"needle": "sad"
+		},
+		{
+			"haystack": "leetcode",
+			"needle": "leeto"
+		},
+		{
+			"haystack": "hello",
+			"needle": "ll"
+		}
 	]
 }

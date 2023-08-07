@@ -1,6 +1,7 @@
 package org.kybprototyping;
 
 import org.kybprototyping.problems.GenerateParentheses.GenerateParenthesesArgs;
+import org.kybprototyping.problems.IndexOfTheFirstOccurrenceInAString.IndexOfTheFirstOccurrenceInAStringArgs;
 import org.kybprototyping.problems.MergeTwoSortedLists.MergeTwoSortedListsArgs;
 import org.kybprototyping.problems.RemoveDuplicatesFromSortedArray.RemoveDuplicatesFromSortedArrayArgs;
 import org.kybprototyping.problems.RemoveElement.RemoveElementArgs;
@@ -19,4 +20,5 @@ public class ProblemsArgs {
 	private List<SwapNodesInPairsArgs> swapNodesInPairsArgs;
 	private List<RemoveDuplicatesFromSortedArrayArgs> removeDuplicatesFromSortedArrayArgs;
 	private List<RemoveElementArgs> removeElementArgs;
+	private List<IndexOfTheFirstOccurrenceInAStringArgs> indexOfTheFirstOccurrenceInAStringArgs;
 }
