@@ -41,7 +41,7 @@ public class IndexOfTheFirstOccurrenceInAString implements
     int i = 0;
     int j = i;
     int c = 0;
-    while (i < needle.length()) {
+    while (haystack.length() - i + c >= needle.length()) {
       if (haystack.charAt(i) == needle.charAt(i - j)) {
         c++;
         i++;

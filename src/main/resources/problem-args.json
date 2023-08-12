@@ -214,6 +214,10 @@
 		{
 			"haystack": "hello",
 			"needle": "ll"
+		},
+		{
+			"haystack": "aaa",
+			"needle": "aaa"
 		}
 	]
 }

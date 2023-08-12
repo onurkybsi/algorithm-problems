@@ -57,7 +57,7 @@ public class Main {
 		var problemToRun =
 				allProblems.stream().filter(p -> p.getName().equals("IndexOfTheFirstOccurrenceInAString"))
 						.findFirst().orElseThrow();
-		problemToRun.runSolution(2);
+		problemToRun.runSolution(problemToRun.getProblemArgs().size());
 	}
 
 	private static void greetClient() {
