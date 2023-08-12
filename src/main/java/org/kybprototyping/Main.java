@@ -54,10 +54,9 @@ public class Main {
 		// printProblemDetails(allProblems.get(Integer.parseInt(problemNumberWillBeSolved)
 		// - 1));
 
-		var problemToRun =
-				allProblems.stream().filter(p -> p.getName().equals("IndexOfTheFirstOccurrenceInAString"))
-						.findFirst().orElseThrow();
-		problemToRun.runSolution(problemToRun.getProblemArgs().size());
+		var problemToRun = allProblems.stream().filter(p -> p.getName().equals("DivideTwoIntegers"))
+				.findFirst().orElseThrow();
+		problemToRun.runSolution(6);
 	}
 
 	private static void greetClient() {

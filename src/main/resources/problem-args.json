@@ -219,5 +219,35 @@
 			"haystack": "aaa",
 			"needle": "aaa"
 		}
+	],
+	"divideTwoIntegersArgs": [
+		{
+			"dividend": 10,
+			"divisor": 3
+		},
+		{
+			"dividend": 7,
+			"divisor": -3
+		},
+		{
+			"dividend": -1,
+			"divisor": 1
+		},
+		{
+			"dividend": -1,
+			"divisor": -1
+		},
+		{
+			"dividend": -2147483648,
+			"divisor": -1
+		},
+		{
+			"dividend": 2147483647,
+			"divisor": 1
+		},
+		{
+			"dividend": -1,
+			"divisor": 1
+		}
 	]
 }

@@ -1,5 +1,6 @@
 package org.kybprototyping;
 
+import org.kybprototyping.problems.DivideTwoIntegers.DivideTwoIntegersArgs;
 import org.kybprototyping.problems.GenerateParentheses.GenerateParenthesesArgs;
 import org.kybprototyping.problems.IndexOfTheFirstOccurrenceInAString.IndexOfTheFirstOccurrenceInAStringArgs;
 import org.kybprototyping.problems.MergeTwoSortedLists.MergeTwoSortedListsArgs;
@@ -21,4 +22,5 @@ public class ProblemsArgs {
 	private List<RemoveDuplicatesFromSortedArrayArgs> removeDuplicatesFromSortedArrayArgs;
 	private List<RemoveElementArgs> removeElementArgs;
 	private List<IndexOfTheFirstOccurrenceInAStringArgs> indexOfTheFirstOccurrenceInAStringArgs;
+	private List<DivideTwoIntegersArgs> divideTwoIntegersArgs;
 }
