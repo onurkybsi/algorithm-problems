@@ -7,6 +7,7 @@ import org.kybprototyping.problems.MergeTwoSortedLists.MergeTwoSortedListsArgs;
 import org.kybprototyping.problems.RemoveDuplicatesFromSortedArray.RemoveDuplicatesFromSortedArrayArgs;
 import org.kybprototyping.problems.RemoveElement.RemoveElementArgs;
 import org.kybprototyping.problems.RemoveNthNodeFromEndOfList.RemoveNthNodeFromEndOfListArgs;
+import org.kybprototyping.problems.SubstringWithConcatenationOfAllWords.SubstringWithConcatenationOfAllWordsArgs;
 import org.kybprototyping.problems.SwapNodesInPairs.SwapNodesInPairsArgs;
 import org.kybprototyping.problems.ValidParentheses.ValidParenthesesArgs;
 import java.util.List;
@@ -23,4 +24,5 @@ public class ProblemsArgs {
 	private List<RemoveElementArgs> removeElementArgs;
 	private List<IndexOfTheFirstOccurrenceInAStringArgs> indexOfTheFirstOccurrenceInAStringArgs;
 	private List<DivideTwoIntegersArgs> divideTwoIntegersArgs;
+	private List<SubstringWithConcatenationOfAllWordsArgs> substringWithConcatenationOfAllWordsArgs;
 }

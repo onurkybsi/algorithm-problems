@@ -249,5 +249,22 @@
 			"dividend": -1,
 			"divisor": 1
 		}
+	],
+	"substringWithConcatenationOfAllWordsArgs": [
+		{
+			"s": "barfoothefoobarman",
+			"words": [
+				"foo",
+				"bar"
+			]
+		},
+		{
+			"s": "barfoofoobarthefoobarman",
+			"words": [
+				"bar",
+				"foo",
+				"the"
+			]
+		}
 	]
 }

@@ -54,9 +54,10 @@ public class Main {
 		// printProblemDetails(allProblems.get(Integer.parseInt(problemNumberWillBeSolved)
 		// - 1));
 
-		var problemToRun = allProblems.stream().filter(p -> p.getName().equals("DivideTwoIntegers"))
-				.findFirst().orElseThrow();
-		problemToRun.runSolution(6);
+		var problemToRun =
+				allProblems.stream().filter(p -> p.getName().equals("SubstringWithConcatenationOfAllWords"))
+						.findFirst().orElseThrow();
+		problemToRun.runSolution(2);
 	}
 
 	private static void greetClient() {
