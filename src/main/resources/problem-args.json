@@ -254,8 +254,17 @@
 		{
 			"s": "barfoothefoobarman",
 			"words": [
-				"foo",
-				"bar"
+				"bar",
+				"foo"
+			]
+		},
+		{
+			"s": "wordgoodgoodgoodbestword",
+			"words": [
+				"word",
+				"good",
+				"best",
+				"word"
 			]
 		},
 		{

@@ -5,6 +5,7 @@ import org.kybprototyping.ConsoleUtils;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.IntStream;
 import lombok.Data;
 
 public class SubstringWithConcatenationOfAllWords implements
@@ -43,49 +44,34 @@ public class SubstringWithConcatenationOfAllWords implements
 
 	private static List<Integer> findSubstring(String s, String[] words) {
 		HashSet<String> wordsPermutations = buildWordsPermutations(words);
-		ArrayList<String> sSubStrings = buildSubStrings(s, words[0].length() * words.length);
 		List<Integer> r = new ArrayList<>();
-		for (int i = 0; i < sSubStrings.size(); i++) {
-			if (wordsPermutations.contains(sSubStrings.get(i))) {
-				r.add(i);
+		for (String wp : wordsPermutations) {
+			int i = 0;
+			while (s.length() - i >= wp.length()) {
+				if (s.substring(i, i + wp.length()).equals(wp)) {
+					r.add(i);
+					i += wp.length();
+				} else {
+					i++;
+				}
 			}
 		}
 		return r;
 	}
 
 	private static HashSet<String> buildWordsPermutations(String[] words) {
-		var permutations = new HashSet<String>(words.length * words.length - 1);
+		int permutationsCount =
+				IntStream.rangeClosed(1, words.length).reduce(1, (int x, int y) -> x * y);
 
-		var a = new ArrayList<String[]>();
-		for (int i = 0; i < words.length * (words.length - 1); i++) {
-			a.add(words.clone());
+		var wordsCopies = new ArrayList<String[]>();
+		for (int i = 0; i < permutationsCount; i++) {
+			wordsCopies.add(words.clone());
 		}
 
-		for (int i = 0; i < words.length; i++) {
-			for (int j = 0; j < words.length; j++) {
-				String temp = a.get(j)[j];
-				a.get(j)[j] = a.get(j)[i];
-				a.get(j)[i] = temp;
-				permutations.add(String.join("", a.get(j)));
-			}
-		}
+		var permutations = new HashSet<String>(permutationsCount);
+		// Needs to be calculated
 
 		return permutations;
-	}
-
-	private static ArrayList<String> buildSubStrings(String s, int maxLength) {
-		if (s.length() <= 0) {
-			return new ArrayList<>();
-		}
-
-		ArrayList<String> result = new ArrayList<>();
-		int i = 0;
-		while (s.length() - i >= maxLength) {
-			result.add(s.substring(i, i + maxLength));
-			i++;
-		}
-
-		return result;
 	}
 
 }
