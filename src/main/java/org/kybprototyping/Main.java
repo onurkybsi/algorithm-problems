@@ -57,7 +57,7 @@ public class Main {
 		var problemToRun =
 				allProblems.stream().filter(p -> p.getName().equals("SubstringWithConcatenationOfAllWords"))
 						.findFirst().orElseThrow();
-		problemToRun.runSolution(3);
+		problemToRun.runSolution(1);
 	}
 
 	private static void greetClient() {

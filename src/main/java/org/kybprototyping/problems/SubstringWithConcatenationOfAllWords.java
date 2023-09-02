@@ -3,9 +3,9 @@ package org.kybprototyping.problems;
 import org.kybprototyping.BootstrapHelper;
 import org.kybprototyping.ConsoleUtils;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.stream.IntStream;
 import lombok.Data;
 
 public class SubstringWithConcatenationOfAllWords implements
@@ -43,35 +43,42 @@ public class SubstringWithConcatenationOfAllWords implements
 	}
 
 	private static List<Integer> findSubstring(String s, String[] words) {
-		HashSet<String> wordsPermutations = buildWordsPermutations(words);
+
 		List<Integer> r = new ArrayList<>();
-		for (String wp : wordsPermutations) {
-			int i = 0;
-			while (s.length() - i >= wp.length()) {
-				if (s.substring(i, i + wp.length()).equals(wp)) {
-					r.add(i);
-					i += wp.length();
+		LinkedHashSet<Integer> c = LinkedHashSet.newLinkedHashSet(words.length);
+		int c2 = 0;
+
+		for (int i = 0; i < words.length;) {
+			int startIx = s.indexOf(words[i], c2);
+			if (startIx == -1) {
+				c2 = 0;
+				i++; // NOSONAR
+				continue;
+			}
+			if (startIx == c2 && startIx != 0) {
+				c2 = 0;
+				i++; // NOSONAR
+			}
+			c2 = startIx + words[i].length();
+			c.add(i);
+
+			for (int j = startIx + words[i].length(); c.size() * words[i].length() < words[i].length() // NOSONAR
+					* words.length; j += words[i].length()) {
+				if (Arrays.binarySearch(words, s.substring(j, j + words[i].length())) < 0) {
+					c.clear();
+					break;
+				} else if (c.size() == words.length - 1) {
+					r.add(startIx);
+					c.clear();
+					break;
 				} else {
-					i++;
+					c.add(j);
 				}
 			}
+
 		}
+
 		return r;
-	}
-
-	private static HashSet<String> buildWordsPermutations(String[] words) {
-		int permutationsCount =
-				IntStream.rangeClosed(1, words.length).reduce(1, (int x, int y) -> x * y);
-
-		var wordsCopies = new ArrayList<String[]>();
-		for (int i = 0; i < permutationsCount; i++) {
-			wordsCopies.add(words.clone());
-		}
-
-		var permutations = new HashSet<String>(permutationsCount);
-		// Needs to be calculated
-
-		return permutations;
 	}
 
 }
