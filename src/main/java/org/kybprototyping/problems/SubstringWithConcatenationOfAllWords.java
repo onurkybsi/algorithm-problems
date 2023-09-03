@@ -43,39 +43,37 @@ public class SubstringWithConcatenationOfAllWords implements
 	}
 
 	private static List<Integer> findSubstring(String s, String[] words) {
-
 		List<Integer> r = new ArrayList<>();
-		LinkedHashSet<Integer> c = LinkedHashSet.newLinkedHashSet(words.length);
+		LinkedHashSet<Integer> c = new LinkedHashSet<>(words.length);
 		int c2 = 0;
+		int wordLength = words[0].length();
 
 		for (int i = 0; i < words.length;) {
 			int startIx = s.indexOf(words[i], c2);
-			if (startIx == -1) {
-				c2 = 0;
-				i++; // NOSONAR
-				continue;
-			}
-			if (startIx == c2 && startIx != 0) {
-				c2 = 0;
-				i++; // NOSONAR
-			}
-			c2 = startIx + words[i].length();
-			c.add(i);
+			c2 = startIx + wordLength;
 
-			for (int j = startIx + words[i].length(); c.size() * words[i].length() < words[i].length() // NOSONAR
-					* words.length; j += words[i].length()) {
-				if (Arrays.binarySearch(words, s.substring(j, j + words[i].length())) < 0) {
-					c.clear();
-					break;
-				} else if (c.size() == words.length - 1) {
-					r.add(startIx);
-					c.clear();
-					break;
-				} else {
-					c.add(j);
+			if (startIx == -1 || startIx == c2) {
+				c2 = 0;
+				i++; // NOSONAR
+			} else {
+				c.add(i);
+
+				for (int j = c2; j + wordLength <= s.length() // NOSONAR
+						&& c.size() * wordLength < words.length * wordLength; j += wordLength) {
+					int searchedWordsIx = Arrays.binarySearch(words, s.substring(j, j + wordLength));
+					if (searchedWordsIx < 0 || c.contains(searchedWordsIx)) {
+						c.clear();
+						break;
+					} else if (c.size() == words.length - 1) {
+						r.add(startIx);
+						c.clear();
+						break;
+					} else {
+						c.add(searchedWordsIx);
+					}
 				}
-			}
 
+			}
 		}
 
 		return r;

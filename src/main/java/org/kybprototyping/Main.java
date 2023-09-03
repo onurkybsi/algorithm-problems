@@ -58,6 +58,8 @@ public class Main {
 				allProblems.stream().filter(p -> p.getName().equals("SubstringWithConcatenationOfAllWords"))
 						.findFirst().orElseThrow();
 		problemToRun.runSolution(1);
+		problemToRun.runSolution(2);
+		problemToRun.runSolution(3);
 	}
 
 	private static void greetClient() {
