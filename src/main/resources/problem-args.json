@@ -274,6 +274,53 @@
 				"foo",
 				"the"
 			]
+		},
+		{
+			"s": "wordgoodgoodgoodbestword",
+			"words": [
+				"word",
+				"good",
+				"best",
+				"good"
+			]
+		},
+		{
+			"s": "lingmindraboofooowingdingbarrwingmonkeypoundcake",
+			"words": [
+				"fooo",
+				"barr",
+				"wing",
+				"ding",
+				"wing"
+			]
+		},
+		{
+			"s": "a",
+			"words": [
+				"a"
+			]
+		},
+		{
+			"s": "ab",
+			"words": [
+				"a",
+				"b"
+			]
+		},
+		{
+			"s": "aaaaaaaaaaaaaa",
+			"words": [
+				"aa",
+				"aa"
+			]
+		},
+		{
+			"s": "aaaaaaaa",
+			"words": [
+				"aa",
+				"aa",
+				"aa"
+			]
 		}
 	]
 }
