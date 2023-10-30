@@ -3,7 +3,7 @@ package org.kybprototyping.problems;
 import org.kybprototyping.BootstrapHelper;
 import org.kybprototyping.ConsoleUtils;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.Data;
@@ -43,60 +43,36 @@ public class SubstringWithConcatenationOfAllWords implements
 	}
 
 	private static List<Integer> findSubstring(String s, String[] words) {
-		List<Integer> r = new ArrayList<>();
-		if (s.length() == 0 || words.length == 0) {
-			return r;
-		}
-		if (s.length() == words.length && s.length() == 1 && s.equals(words[0])) {
-			r.add(0);
-			return r;
-		}
+		Set<Integer> result = new HashSet<>();
 
-		LinkedHashSet<Integer> c = new LinkedHashSet<>(words.length);
-		int nextIx = 0;
-		int wordLength = words[0].length();
-
-		for (int i = 0; i < words.length;) {
-			int startIx = s.indexOf(words[i], nextIx);
-			nextIx++;
-
-			if (startIx == -1) {
-				nextIx = 0;
-				i++; // NOSONAR
-				c.clear();
+		int i = 0;
+		int fromIndex = 0;
+		while (i < words.length) {
+			int startingIx = s.indexOf(words[i], fromIndex);
+			if (startingIx == -1) {
+				i = i + 1;
+			} else if (result.contains(startingIx)) {
+				i = i + 1;
 			} else {
-				c.add(i);
+				ArrayList<Integer> usedIndices = new ArrayList<>();
+				usedIndices.add(i);
 
-				for (int j = startIx + wordLength; j + wordLength <= s.length() // NOSONAR
-						&& c.size() * wordLength <= words.length * wordLength; j += wordLength) {
-					int searchedWordsIx = findIx(words, s.substring(j, j + wordLength), c);
-					if (searchedWordsIx < 0 || c.contains(searchedWordsIx)) {
-						c.clear();
+				fromIndex = startingIx + words[0].length();
+				for (int j = fromIndex; j < s.length(); j += words[0].length()) {
+					if (usedIndices.size() == words.length) {
+						result.add(startingIx);
+						i = i + 1;
+						fromIndex = 0;
 						break;
-					} else if (c.size() == words.length - 1) {
-						r.add(startIx);
-						c.clear();
-						break;
-					} else if (j + wordLength > words.length * wordLength) {
-						c.clear();
-					} else {
-						c.add(searchedWordsIx);
 					}
+
+					String nextPiece = s.substring(j, j + words[0].length());
+					// TODO: check if next piece exists in words and that word is not in usedIndices.
 				}
-
 			}
 		}
 
-		return r.stream().distinct().toList();
-	}
-
-	private static int findIx(String[] toSearch, String searched, Set<Integer> excludedOnes) {
-		for (int i = 0; i < toSearch.length; i++) {
-			if (searched.equals(toSearch[i]) && !excludedOnes.contains(i)) {
-				return i;
-			}
-		}
-		return -1;
+		return new ArrayList<>(result);
 	}
 
 }
