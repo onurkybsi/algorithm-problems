@@ -321,6 +321,13 @@
 				"aa",
 				"aa"
 			]
+		},
+		{
+			"s": "ababababab",
+			"words": [
+				"ababa",
+				"babab"
+			]
 		}
 	]
 }

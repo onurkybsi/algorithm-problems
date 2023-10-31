@@ -42,6 +42,7 @@ public class SubstringWithConcatenationOfAllWords implements
 		ConsoleUtils.INSTANCE.info(result);
 	}
 
+	@SuppressWarnings({"java:S135", "java:S3776"})
 	private static List<Integer> findSubstring(String s, String[] words) {
 		Set<Integer> result = new HashSet<>();
 
@@ -49,30 +50,49 @@ public class SubstringWithConcatenationOfAllWords implements
 		int fromIndex = 0;
 		while (i < words.length) {
 			int startingIx = s.indexOf(words[i], fromIndex);
-			if (startingIx == -1) {
+			if (startingIx == -1 || result.contains(startingIx)) {
 				i = i + 1;
-			} else if (result.contains(startingIx)) {
-				i = i + 1;
+				fromIndex = 0;
 			} else {
 				ArrayList<Integer> usedIndices = new ArrayList<>();
 				usedIndices.add(i);
 
 				fromIndex = startingIx + words[0].length();
-				for (int j = fromIndex; j < s.length(); j += words[0].length()) {
+				for (int j = fromIndex; j + words[0].length() <= s.length(); j += words[0].length()) {
 					if (usedIndices.size() == words.length) {
-						result.add(startingIx);
-						i = i + 1;
-						fromIndex = 0;
 						break;
 					}
 
 					String nextPiece = s.substring(j, j + words[0].length());
-					// TODO: check if next piece exists in words and that word is not in usedIndices.
+					int existentWordIx = getIxIfExists(words, nextPiece, usedIndices);
+					if (existentWordIx != -1) {
+						usedIndices.add(existentWordIx);
+					} else {
+						fromIndex = startingIx + words[0].length();
+						break;
+					}
+				}
+
+				if (usedIndices.size() == words.length) {
+					result.add(startingIx);
+					fromIndex = startingIx + words[0].length();
 				}
 			}
 		}
 
 		return new ArrayList<>(result);
+	}
+
+	private static int getIxIfExists(String[] arr, String str, ArrayList<Integer> exclusions) {
+		for (int i = 0; i < arr.length; i++) {
+			if (exclusions.contains(i)) {
+				continue;
+			}
+			if (str.equals(arr[i])) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 }

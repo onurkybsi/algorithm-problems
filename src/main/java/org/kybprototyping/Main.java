@@ -57,15 +57,16 @@ public class Main {
 		var problemToRun =
 				allProblems.stream().filter(p -> p.getName().equals("SubstringWithConcatenationOfAllWords"))
 						.findFirst().orElseThrow();
-		// problemToRun.runSolution(1);
-		// problemToRun.runSolution(2);
+		problemToRun.runSolution(1); // Needs to be [0, 9]
+		problemToRun.runSolution(2); // Needs to be []
 		problemToRun.runSolution(3); // Needs to be [6,9,12]
-		// problemToRun.runSolution(4);
-		// problemToRun.runSolution(5);
-		// problemToRun.runSolution(6);
-		// problemToRun.runSolution(7);
-		// problemToRun.runSolution(8);
-		// problemToRun.runSolution(9);
+		problemToRun.runSolution(4); // Needs to be [8]
+		problemToRun.runSolution(5);
+		problemToRun.runSolution(6); // Needs to be [0]
+		problemToRun.runSolution(7);
+		problemToRun.runSolution(8); // Needs to be [0,1,2,3,4,5,6,7,8,9,10] DOES NOT WORK
+		problemToRun.runSolution(9);
+		problemToRun.runSolution(10);
 	}
 
 	private static void greetClient() {
