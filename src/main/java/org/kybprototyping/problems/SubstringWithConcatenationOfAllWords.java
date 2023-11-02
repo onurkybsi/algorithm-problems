@@ -11,25 +11,30 @@ final class SubstringWithConcatenationOfAllWords {
 
 	@SuppressWarnings({"java:S135", "java:S3776"})
 	static List<Integer> findSubstring(String s, String[] words) {
-		if (s.equals(String.join("", words))) {
-			return List.of(0);
-		}
+		Set<Integer> result = checkIfAllSame(s, words);
 
-		Set<Integer> result = new HashSet<>();
+		if (result.size() == s.length() / words.length) {
+			return new ArrayList<>(result);
+		}
 
 		int wordLength = words[0].length();
 
 		int i = 0;
 		int fromIndex = 0;
+		HashSet<String> temp = new HashSet<>(wordLength);
 		while (i < words.length) {
 			int startingIx = s.indexOf(words[i], fromIndex);
 
 			if (startingIx == -1 || result.contains(startingIx)) {
 				i = i + 1;
 				fromIndex = 0;
+			} else if (temp.contains(words[i] + startingIx)) {
+				i = i + 1;
+				fromIndex = 0;
 			} else {
 				HashSet<Integer> usedIndices = new HashSet<>(words.length);
 				usedIndices.add(i);
+				temp.add(words[i] + startingIx);
 
 				fromIndex = startingIx + wordLength;
 				for (int j = fromIndex; j + wordLength <= s.length(); j += wordLength) {
@@ -39,7 +44,7 @@ final class SubstringWithConcatenationOfAllWords {
 
 					String nextPiece = s.substring(j, j + wordLength);
 
-					int existentWordIx = getIxIfExists(words, nextPiece, usedIndices);
+					int existentWordIx = indexOf(words, nextPiece, usedIndices);
 					if (existentWordIx != -1) {
 						usedIndices.add(existentWordIx);
 					} else {
@@ -58,7 +63,20 @@ final class SubstringWithConcatenationOfAllWords {
 		return new ArrayList<>(result);
 	}
 
-	private static int getIxIfExists(String[] arr, String str, HashSet<Integer> exclusions) {
+	private static Set<Integer> checkIfAllSame(String s, String[] words) {
+		HashSet<Integer> result = new HashSet<>();
+
+		int i = 0;
+		String joined = String.join("", words);
+		while (s.indexOf(joined, i) != -1) {
+			result.add(i);
+			i = i + joined.length();
+		}
+
+		return result;
+	}
+
+	private static int indexOf(String[] arr, String str, HashSet<Integer> exclusions) {
 		for (int i = 0; i < arr.length; i++) {
 			if (exclusions.contains(i)) {
 				continue;
