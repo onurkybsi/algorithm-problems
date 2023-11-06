@@ -8,6 +8,8 @@ final class SubstringWithConcatenationOfAllWords {
 
 	private SubstringWithConcatenationOfAllWords() {}
 
+	// TODO: It takes too much time in the edge cases.
+	// Check the test data.
 	@SuppressWarnings({"java:S135", "java:S3776"})
 	static List<Integer> findSubstring(String s, String[] words) {
 		HashSet<Integer> result = new HashSet<>();
