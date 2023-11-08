@@ -28,6 +28,8 @@ class NextPermutationTest {
         Arguments.of(new int[] {1, 1, 5}, new int[] {1, 5, 1}),
         Arguments.of(new int[] {1, 3, 2}, new int[] {2, 1, 3}),
         Arguments.of(new int[] {4, 2, 0, 2, 3, 2, 0}, new int[] {4, 2, 0, 3, 0, 2, 2}));
+    // return Stream.of(Arguments.of(new int[] {6, 7, 5, 3, 5, 6, 2, 9, 1, 2, 7, 0, 9},
+    // new int[] {6, 7, 5, 3, 5, 6, 2, 9, 1, 2, 7, 9, 0}));
   }
 
 }

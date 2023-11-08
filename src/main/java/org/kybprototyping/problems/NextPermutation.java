@@ -7,14 +7,24 @@ final class NextPermutation {
   public static void nextPermutation(int[] nums) {
     int i = nums.length - 1, j = i - 1;
 
+    int ixLeft = -1;
+    int ixRight = nums.length;
+    long minIncrease = Long.MAX_VALUE;
     while (i > 0) {
       if (nums[i] > nums[j]) {
-        int temp = nums[j];
-        nums[j] = nums[i];
-        nums[i] = temp;
+        long increase = calculateIncrease(nums, j, i);
+        if (increase < minIncrease) {
+          minIncrease = increase;
+          ixLeft = j;
+          ixRight = i;
+        }
 
-        countingSort(nums, j + 1, nums.length);
-        return;
+        if (j == 0) {
+          i -= 1;
+          j = i - 1;
+        } else {
+          j -= 1;
+        }
       } else if (j == 0) {
         i -= 1;
         j = i - 1;
@@ -23,30 +33,44 @@ final class NextPermutation {
       }
     }
 
-    countingSort(nums, 0, nums.length);
+    if (!(ixLeft == -1 && ixRight == nums.length)) {
+      int temp = nums[ixLeft];
+      nums[ixLeft] = nums[ixRight];
+      nums[ixRight] = temp;
+      countingSort(nums, ixRight - 1, nums.length);
+    } else {
+      countingSort(nums, 0, nums.length);
+    }
   }
 
-  public static void countingSort(int[] arr, int from, int to) {
-    int max = findMax(arr, from, to); // O(n)
+  private static long calculateIncrease(int[] nums, int ixLeft, int ixRight) {
+    long diffference = 0;
+    diffference += (long) nums[ixLeft] * ((long) Math.pow(10, nums.length - ixRight - 1)
+        - (long) Math.pow(10, nums.length - ixLeft - 1));
+    diffference += (long) nums[ixRight] * ((long) Math.pow(10, nums.length - ixLeft - 1)
+        - (long) Math.pow(10, nums.length - ixRight - 1));
+    return diffference;
+  }
 
-    // initialized with zero values.
-    int[] countingArr = new int[max + 1]; // O(max + 1) in RAM model
-    for (int i = from; i < to; i++) { // O(n)
+  private static void countingSort(int[] arr, int from, int to) {
+    int max = findMax(arr, from, to);
+
+    int[] countingArr = new int[max + 1];
+    for (int i = from; i < to; i++) {
       countingArr[arr[i]] += 1;
     }
 
-    for (int i = 1; i < max + 1; i++) { // O(max + 1)
+    for (int i = 1; i < max + 1; i++) {
       countingArr[i] += countingArr[i - 1];
     }
 
     int[] temp = new int[to - from];
-    // iterating from the end at this point makes the algorithm stable.
-    for (int i = to - 1; i >= from; i--) { // O(n)
+    for (int i = to - 1; i >= from; i--) {
       temp[countingArr[arr[i]] - 1] = arr[i];
       countingArr[arr[i]]--;
     }
 
-    for (int i = 0; i < temp.length; i++) { // O(n)
+    for (int i = 0; i < temp.length; i++) {
       arr[from + i] = temp[i];
     }
   }
