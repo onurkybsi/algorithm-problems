@@ -12,8 +12,7 @@ final class SameTree {
       return false;
     }
 
-    boolean isSame = isSameTree(p.left, q.left);
-    if (!isSame) {
+    if (!isSameTree(p.left, q.left)) {
       return false;
     }
 
