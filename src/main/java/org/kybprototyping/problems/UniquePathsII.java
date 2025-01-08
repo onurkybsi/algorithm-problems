@@ -15,7 +15,7 @@ final class UniquePathsII {
         if (obstacleGrid[row][col] == 1) {
           continue;
         }
-        // Sum of number of ways to get previous grids
+        // Sum of number of ways to get previous cells
         if (row > 0 && obstacleGrid[row - 1][col] == 0) {
           memo[row][col] += memo[row - 1][col];
         }
