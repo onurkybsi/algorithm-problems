@@ -23,7 +23,7 @@ final class CountVowelsPermutation {
     int count = 0;
     for (Character c : chars)
       count = (count + countVowelPermutation(c, n - 1)) % 1_000_000_007;
-    return count % 1_000_000_007;
+    return count;
   }
 
   private int countVowelPermutation(Character previousChar, int length) {
