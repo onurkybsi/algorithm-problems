@@ -7,13 +7,12 @@ final class KthSmallestPrimeFraction {
   private KthSmallestPrimeFraction() {}
 
   public int[] kthSmallestPrimeFraction(int[] arr, int k) {
-    PriorityQueue<Triple> queue =
-        new PriorityQueue<>((p1, p2) -> Double.compare(p1.first, p2.first));
+    var queue = new PriorityQueue<Triple>((p1, p2) -> Double.compare(p1.first, p2.first));
     for (int i = 0; i < arr.length; i++) {
       int dividend = arr[i];
 
       for (int j = 0; j < arr.length; j++) {
-        queue.add(new Triple((double) dividend / (double) arr[j], dividend, arr[j]));
+        queue.add(new Triple((double) dividend / arr[j], dividend, arr[j]));
       }
     }
 
