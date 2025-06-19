@@ -8,7 +8,7 @@ final class MinimumChangesToMakeAlternatingBinaryString {
     return Math.min(minOperations(s, s.charAt(0)), minOperations(s, otherOf(s.charAt(0))));
   }
 
-  public int minOperations(String s, char startingChar) {
+  public static int minOperations(String s, char startingChar) {
     int minOperations = 0;
     char previous = startingChar;
     for (int i = 0; i < s.length(); i++) {
