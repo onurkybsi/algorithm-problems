@@ -1,5 +1,6 @@
 package org.kybprototyping;
 
+import java.util.List;
 import org.kybprototyping.problems.DivideTwoIntegers.DivideTwoIntegersArgs;
 import org.kybprototyping.problems.GenerateParentheses.GenerateParenthesesArgs;
 import org.kybprototyping.problems.IndexOfTheFirstOccurrenceInAString.IndexOfTheFirstOccurrenceInAStringArgs;
@@ -8,14 +9,11 @@ import org.kybprototyping.problems.RemoveDuplicatesFromSortedArray.RemoveDuplica
 import org.kybprototyping.problems.RemoveElement.RemoveElementArgs;
 import org.kybprototyping.problems.RemoveNthNodeFromEndOfList.RemoveNthNodeFromEndOfListArgs;
 import org.kybprototyping.problems.SwapNodesInPairs.SwapNodesInPairsArgs;
-import org.kybprototyping.problems.ValidParentheses.ValidParenthesesArgs;
-import java.util.List;
 import lombok.Data;
 
 @Data
 public class ProblemsArgs {
 	private List<RemoveNthNodeFromEndOfListArgs> removeNthNodeFromEndOfListArgs;
-	private List<ValidParenthesesArgs> validParenthesesArgs;
 	private List<MergeTwoSortedListsArgs> mergeTwoSortedListsArgs;
 	private List<GenerateParenthesesArgs> generateParenthesesArgs;
 	private List<SwapNodesInPairsArgs> swapNodesInPairsArgs;
