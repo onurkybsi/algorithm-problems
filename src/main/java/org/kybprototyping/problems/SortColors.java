@@ -10,14 +10,12 @@ final class SortColors {
     int cur = 0;
     while (cur <= right) {
       if (nums[cur] == 0) {
-        int temp = nums[left];
+        nums[cur] = nums[left];
         nums[left] = 0;
-        nums[cur] = temp;
         cur = ++left;
       } else if (nums[cur] == 2) {
-        int temp = nums[right];
+        nums[cur] = nums[right];
         nums[right] = 2;
-        nums[cur] = temp;
         right--;
       } else if (nums[cur] > nums[right]) {
         int temp = nums[right];
